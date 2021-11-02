@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+
+</head>
+<body>
+<form th:action="@{/user/login}" class="form" id="form1">
+    <div class="content">
+        <div class="login-content">
+            <a href="" class="banner-box"></a>
+            <div class="login-box">
+                <h1>账号登录</h1>
+                <input type="text" placeholder="手机" name="phone">
+                <input type="password" placeholder="密码" name="password">
+                <button class="login-btn">登录</button>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

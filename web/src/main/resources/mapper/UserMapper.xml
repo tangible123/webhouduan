@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.demo.dao.UserMapper">
+    <resultMap id="User" type="com.web.demo.model.User">
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="table">
+        user
+    </sql>
+
+
+    <update id="UpdatePasswordByPhone">
+    update user
+    <set>
+        <if test="password!=null">password=#{password,jdbcType=VARCHAR},</if>
+    </set>
+    where phone = #{phone,jdbcType=VARCHAR}
+    </update>
+
+
+
+    <select id="checkUserName" parameterType="java.lang.String" resultType="integer">
+        select
+         count(*)
+        from user
+        where username = #{username,jdbcType=VARCHAR}
+    </select>
+
+    <select id="checkUserNum" parameterType="java.lang.String" resultType="integer">
+        select
+            count(*)
+        from user
+        where userNum = #{userNum,jdbcType=VARCHAR}
+    </select>
+
+    <select id="checkEmail" parameterType="java.lang.String" resultType="integer">
+        select
+            count(*)
+        from user
+        where email = #{email,jdbcType=VARCHAR}
+    </select>
+
+    <select id="checkPhone" parameterType="java.lang.String" resultType="integer">
+        select
+            count(*)
+        from user
+        where phone = #{phone,jdbcType=VARCHAR}
+    </select>
+
+
+
+    <update id="UpdatePasswordByEmail">
+        update
+        <include refid="table"/>
+        <set>
+            <if test="password!=null">password=#{password,jdbcType=VARCHAR},</if>
+        </set>
+        where email= #{email,jdbcType=VARCHAR}
+    </update>
+
+
+    <select id="selectByName" parameterType="java.lang.String" resultMap="User">
+        select
+        <include refid="table"/>
+        from user
+        where username = #{userName,jdbcType=VARCHAR}
+    </select>
+
+
+    <insert id="registerUser">
+        insert into
+        <include refid="table"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="userNum!=null">userNum,</if>
+            <if test="username!=null">username,</if>
+            <if test="phone!=null">phone,</if>
+            <if test="email!=null">email,</if>
+            <if test="password!=null">password,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userNum!=null">#{userNum,jdbcType=VARCHAR},</if>
+            <if test="username!=null">#{username,jdbcType=VARCHAR},</if>
+            <if test="phone!=null">#{phone,jdbcType=VARCHAR},</if>
+            <if test="email!=null">#{email,jdbcType=VARCHAR},</if>
+            <if test="password!=null">#{password,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+
+
+    <insert id="CreateUserByUser" parameterType="com.web.demo.model.User">
+        insert into
+        <include refid="table"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="password!=null">password,</if>
+            <if test="phone!=null">phone,</if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="password!=null">#{password,jdbcType=VARCHAR},</if>
+            <if test="phone!=null">#{phone,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+
+    <select id="GetUserNumberByMaxId" resultType="integer">
+        select
+        max(id)
+        from
+        <include refid="table"/>
+    </select>
+
+    <select id="CheckLogin" resultType="java.lang.Integer">
+        select
+        id
+        from
+        <include refid="table"/>
+        where userNum = #{userNum,jdbcType=VARCHAR}
+        or phone = #{phone,jdbcType=VARCHAR}
+        and password = #{password,jdbcType=VARCHAR}
+     </select>
+
+
+
+</mapper>

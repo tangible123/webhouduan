@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+<link rel="stylesheet" href="css/123.css">
+ <script type="text/javascript" src="js/m.js">
+	function chgstunum(){
+	var snum=document.getElementById("stunum");
+	if(snum.value.length >= 10){
+		document.getElementById("dstuphone").style.display="block";
+	}else{
+		document.getElementById("dstuphone").style.display="none";
+	}
+}
+
+
+function chgstuphone(){
+	var sphone=document.getElementById("stuphone");
+	if(sphone.value.length >= 11){
+		document.getElementById("dstupwd").style.display="block";
+	}else{
+		document.getElementById("dstupwd").style.display="none";
+	}
+}
+
+function chgstupwd(){
+	var spwd=document.getElementById("stupwd");
+	if(spwd.value.length >= 6){
+		document.getElementById("dsubmit").style.display="block";
+	}else{
+		document.getElementById("dsubmit").style.display="none";
+	}
+}
+	
+	
+	</script>
+	
+</head>
+	<body>
+	 
+	<div class ="dowebok">
+	<p class ="logo"></p>
+	<form th:action="@{/user/login}" class="form" id="form1">
+	<div class = "form-item">
+		<input  id = "stunum" th:placeholder="学号或手机" name="stunum" required>
+		<p class = "tip" id = "dstuphone">学号不正确或者不存在</p>	
+	</div>
+
+	<div class = "form-item">
+		<input id = "stupwd" th:placeholder = "密码" type="password" name="password">
+		<p class = "tip" id = "dsubmit">密码不正确</p>
+	</div>
+
+		<div class="form-item">
+		<button>进入</button>
+
+		</div>
+	</form>
+
+
+
+</div>
+ 
+  
+	
+	
+</body>
+</html>
+

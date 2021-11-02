@@ -1,0 +1,107 @@
+
+一、Log4j 用法:
+
+在需要调用日志的类里面加上
+Logger logger= LogManager.getLogger(this.getClass());
+将平时输出的内容 放到 logger.info（）里面
+
+注意导入的是这种包
+ import org.apache.logging.log4j.LogManager;
+ import org.apache.logging.log4j.Logger;
+
+如果需要将日志放到本地文件，在log4j2.xml 下面添加 如下配置:
+
+  <RollingFile name="RollingFileInfo" fileName="d:/info.log" filePattern="d:/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+             <Filters>
+             </Filters>
+             <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l -%m%n " />
+             <Policies>
+                 <TimeBasedTriggeringPolicy/>
+                 <SizeBasedTriggeringPolicy size="100 MB" />
+             </Policies>
+         </RollingFile>
+
+
+二、MD5 加密
+
+
+三、AOP统一打印请求和返回信息
+filter
+     -WebLogAspect:  将请求的信息打印出来
+
+
+四、 跨域问题
+
+
+
+
+
+文件目录：
+common:  放置项目中一些通用的类
+
+exception: 定义controller返回的异常枚举，将错误的类型 统一写在一起， 在以后的编写中不需要 单独写，而是直接调用
+          ExceptionEnum ； 定义常见异常的类型
+          Exception: 异常的实现
+
+           sendJunkMailService.sendJunkMail(".com","1914080902534郑贤彬——我为党做一件事","每天都唱国歌");
+
+
+遇到问题:   通过 vue  url 传参 特殊字符问题    解决办法 :  VO 类
+           vue 父子组件传值延迟问题，最后通过函数之间的解耦 巧妙的避免了 问题
+
+
+前后端数据交互 通过统一的对象，这个对象有 状态码，泛型对象 可以提供各种复杂的情况
+
+Vue  this.$message 失效原因  this 对象指向错误
+https://www.jianshu.com/p/5bdad3460bf2
+
+vue不同页面之间数据共享
+
+前后端分离 session 认证的缺点  改用Jwt  整合 shiro
+
+
+BUG: vo 属性名必须与前端一致
+
+
+http://localhost:8161/admin/   账户密码都是 admin 查看 activemq里面的消息数量
+
+异步调用方法：   AyMood findAymoodById(int id);
+
+            public AyMood findAymoodById(int id){
+                return  aymoodDao.findAymoodById(id);
+            }
+
+
+            @RequestMapping("/findAymood")
+            public AyMood findAymoodByID(){
+                return ayMoodService.findAymoodById(1);
+            }
+
+        @EnableAsync
+
+         Future<AyMood> findAymoodById(int id);
+
+
+            @Async
+            public Future<AyMood> findAymoodById(int id){
+                return  new AsyncResult<AyMood>( aymoodDao.findAymoodById(id));
+            }
+
+10/30 13:55 阶段性总结： 实现了 redis 保存验证码 并设置了过期时间  实现了 通过activemq 来 发送验证码
+
+
+
+缺少： 注册时候，判断是否被占用
+
+
+
+疑问: @RequestBody(required = false) 在前后端传递参数时候的作用
+
+
+
+
+CaptchaAppId 2084162514
+
+AppSecretKey  0G_VS8Zvfo0SqLBch5Tt5fg**  (*号也为Key值，请不要忽略或者删除)
+
+https://www.npmjs.com/package/vue-monoplasty-slide-verify/v/1.1.2  vue 滑动验证码
